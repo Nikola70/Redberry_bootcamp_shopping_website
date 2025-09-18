@@ -15,17 +15,19 @@
 <body>
 
 <header class="login-header">
-    <a href="index.html">
+    <a href="index.html" class="brand-name">
         <img src="images/logo.png">
         <h1 class="logo">RedSeam Clothing</h1>
     </a>
-    <p class="login">Log In</p>
+    <a href="index.html" class="login-icon">
+      <img src="images/login_icon.png">   
+      <p class="login">Log In</p>
+    </a>
 </header>
 
-<main>
+<main class="index-main">
 
-    <img class="main-image" src="images/main_image_1362_1625.png" width="1362" height="1625">
-
+  <img class="main-cover-image" src="images/main_image_1362_1625.png" width="948" height="1000">  
 
     <div class="login-container">
 
@@ -33,7 +35,7 @@
 
       <form class="registration-form">
         <div class="image-upload">
-            <img class="standard-profile-picture">
+            <img class="standard-profile-picture" src="">
             <button class="profile-image-upload">Upload Now</button>
             <button class="profile-image-remove">Remove</button>
         </div>
@@ -52,7 +54,6 @@
 
         <div class="form-group">
           <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password *" required>
-          <img src="images/eye_icon.png" class="toggle-password" id="togglePassword">
         </div>
         
         <button type="submit" class="login-button">Register</button>
