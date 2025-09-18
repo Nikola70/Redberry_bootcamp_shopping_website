@@ -18,7 +18,7 @@
 
 /* Base setup */
 body {
-  width: 1920px;
+  width: 1980px;
   height: 1080px;
   font-family: var(--FF);
   background-color: var(--BACKGROUND-COLOR);
@@ -29,7 +29,7 @@ body {
 
 /* Login header */
 .login-header {
-  width: 1920px;
+  width: 1980px;
   height: 80px;
   display: flex;
   justify-content: space-between;
@@ -76,8 +76,9 @@ body {
 /* Login main section  */
 .index-main {
   display: flex;
-  width: 1920px;
+  width: 1980px;
   height: 1000px;
+  padding: 0;
 }
 
 .main-cover-image {
@@ -165,12 +166,16 @@ body {
   margin-bottom: 20px;
 }
 
-.standard-profile-picture {
+.default-profile-box {
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  border: 1px solid var(--BORDER-COLOR);
   background-color: var(--BACKGROUND-COLOR); 
   object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-image-upload,
@@ -187,3 +192,135 @@ body {
 .profile-image-remove:hover {
   text-decoration: underline;
 }
+
+/* ================================= */
+ 
+/* Product Listing Page Styles */
+
+/* Header avatar */
+
+.right-side {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 0;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--BORDER-COLOR);
+  background-color: var(--BACKGROUND-COLOR); 
+  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- Navigation / Filter Bar --- */
+nav {
+    top: 152px;
+    width: 100%;
+    padding: 32px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav h2 {
+    font-size: 42px;
+    font-weight: 600;
+}
+
+nav .filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.result-count {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--FONT-COLOR-SECONDARY);
+    margin-right: 50px;
+}
+
+nav .filter .filter,
+nav .filter .sort {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--FONT-COLOR-SECONDARY);
+}
+
+.sort {
+    margin-left: 10px;
+}
+
+/* Product grid */
+main {
+    padding: 0 100px;
+}
+
+.product-listing-main {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 24px;
+    width: 100%;
+}
+
+/* Product item */
+
+.product {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-image {
+    width: 412px;
+    height: 549px;
+    background-color: var(--BACKGROUND-COLOR);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    object-fit: cover;
+}
+
+.product-name {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--FONT-COLOR);
+    margin-bottom: 8px;
+}
+
+.product-price {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--FONT-COLOR);
+}
+
+
+/* Page numbers */
+footer {
+    width: 100%;
+    padding: 40px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+footer img {
+    cursor: pointer;
+}
+
+footer p {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 4px;
+}
+
