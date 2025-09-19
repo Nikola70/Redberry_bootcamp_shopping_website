@@ -14,11 +14,11 @@
 </head>
 <body>
 
-<header>
+<header class="login-header">
 
-    <a href="listing_page.html">
-        <img src="images/logo.png">
-        <h1 class="logo">RedSeam Clothing</h1>
+    <a href="index.html" class="brand-name">
+    <img src="images/logo.png">
+    <h1 class="logo">RedSeam Clothing</h1>
     </a>
 
     <div class="right-side">
@@ -26,54 +26,58 @@
         <button type="button" class="to-cart">
             <img src="images/cart_icon.png">
         </button>
-        
-        <button type="button" class="avatar-dropdown">
-            <img class="profile-image" src="">
-            <img src="images/down_arrow_icon.png">
-        </button>
+        <img src="images/avatar_icon.png" class="avatar">
 
-    </div>
+    </div>    
+
 </header>
 
 <main>
 
-    <h1>Checkout</h1>
+    <h1 class="checkout-title">Checkout</h1>
 
+
+    <div class="checkout-main">
     <form class="checkout-form">
-
-        <div class="checkout-input">
-          <input type="text" id="name" name="name" placeholder="Name">
-        </div>
+      <h2>Order details</h2>
+        <section class="form-top">
+          <div class="checkout-input">
+            <input type="text" id="name" name="name" placeholder="Name">
+          </div>
 
         <div class="checkout-input">
           <input type="text" id="surname" name="surname" placeholder="Surame">
         </div>
+        </section>
 
-        <div class="checkout-email">
-          <input type="email" id="email" name="email" placeholder="Email">
-        </div>
+        <section class="form-mid">
+          <div class="checkout-email">
+            <input type="email" id="email" name="email" placeholder="Email">
+          </div>
+        </section>
         
-        <div class="checkout-input">
-          <input type="text" id="address" name="address" placeholder="Address">
-        </div>
+        <section class="form-bottom">
+          <div class="checkout-input">
+            <input type="text" id="address" name="address" placeholder="Address">
+          </div>
 
-        <div class="checkout-input">
-          <input type="text" id="zip-code" name="zip-code" placeholder="Zip code">
-        </div>
+          <div class="checkout-input">
+            <input type="text" id="zip-code" name="zip-code" placeholder="Zip code">
+          </div>
+        </section>
         
       </form>
 
       <div class="checkout-final">
       <section class="product-in-cart">
 
-        <img src="">
+        <img src="images/clothing_824_1098.png">
 
-        <span class="product1">            
+        <span class="product-checkout">            
             <h2>Product Name</h2>
-            <p class="color">Color</p>
-            <p class="size">L</p>
+            <p class="product-checkout-color">Color</p>
+            <p class="product-checkout-size">L</p>
                 <div class="quantity-info">
-                    <p>Quantity</p>
                     <select name="quantity">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -88,10 +92,11 @@
                 </div>
         </span>
         
-        <span class="product2">
+        <span class="product-checkout-right-side">
+
             <h2>$ 25</h2>
 
-            <button type="button">Remove</button>
+            <button type="button" class="button-remove-item">Remove</button>
         </span>
       </section>
 
@@ -107,12 +112,16 @@
             <h3>$5</h3>
         </span>
 
-        <h2 class="total-price">Total</h2>
+        <span class="total-price">
+          <h2>Total</h2>
+          <h2>$ 55</h2>
+        </span>
 
         <button type="submit" class="pay-button">Pay</button>
 
       </section>
       </div>
+    </div>
 
 
 </main>
