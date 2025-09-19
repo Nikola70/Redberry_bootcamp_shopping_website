@@ -14,11 +14,11 @@
 </head>
 <body>
 
-<header>
+<header class="login-header">
 
-    <a href="product_listing.html">
-        <img src="images/logo.png">
-        <h1 class="logo">RedSeam Clothing</h1>
+    <a href="index.html" class="brand-name">
+    <img src="images/logo.png">
+    <h1 class="logo">RedSeam Clothing</h1>
     </a>
 
     <div class="right-side">
@@ -26,13 +26,10 @@
         <button type="button" class="to-cart">
             <img src="images/cart_icon.png">
         </button>
-        
-        <button type="button" class="avatar-dropdown">
-            <img class="profile-image" src="">
-            <img src="images/down_arrow_icon.png">
-        </button>
+        <img src="images/avatar_icon.png" class="avatar">
 
-    </div>
+    </div>    
+
 </header>
 
 <main>
@@ -46,16 +43,17 @@
             
             <section class="product-images">
                 <div class="image-previews">
-                    <img src="">
-                    <img src="">
-                    <img src="">
-                    <img src="">
-                    <img src="">
-                </div>
-                <div class="main-image-container">
-                    <img src="">
+                    <img src="images/clothing_824_1098.png">
+                    <img src="images/clothing_824_1098.png">
+                    <img src="images/clothing_824_1098.png">
+                    <img src="images/clothing_824_1098.png">
+                    <img src="images/clothing_824_1098.png">
                 </div>
             </section>
+
+            <div class="main-image-container">
+                <img src="images/clothing_824_1098.png">
+            </div>
             
             <section class="product-info">
                 <h2>Kids' Curved Hilfiger Graphic T-Shirt</h2>
@@ -63,10 +61,10 @@
 
                 <div class="color-info">
                     <p>Color: Baby pink</p>
-                    <div class="color-choices">
-                        <button type="button" class="color_button"></button>
-                        <button type="button" class="color_button"></button>
-                        <button type="button" class="color_button"></button>
+                    <div class="color-buttons">
+                        <button type="button" class="color-button"></button>
+                        <button type="button" class="color-button"></button>
+                        <button type="button" class="color-button"></button>
                     </div>
                 </div>
 
@@ -101,9 +99,13 @@
                     Add to cart
                 </button>
 
+                <hr>
+
                 <div class="product-description">
-                    <h2>Details</h2>
-                    <img src="">
+                    <span class="description-header">
+                        <h2>Details</h2>
+                        <img src="">
+                    </span>
                     <h3>Brand: Tommy Hilfiger</h3>
                     <p>This product contains regenerative cotton, which is grown using farming methods that seek to improve soil health, watersheds and biodiversity.</p>
                 </div>
