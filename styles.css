@@ -774,7 +774,12 @@ hr {
   opacity: 0.9;
 }
 
+/* ========================= */
+
+/* Modals */
+
 /* Checkout Modal */
+
 .checkout-modal {
   position: fixed;
   top: 0;
@@ -784,7 +789,7 @@ hr {
   z-index: 999;
   background-color: var(--BACKGROUND-COLOR);
   font-family: var(--FF);
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -846,4 +851,82 @@ hr {
   width: 214px;
   height: 41px;
   font-family: var(--FF);
+}
+
+/* Price Modal */
+
+/* The main modal container */
+.price-modal {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  gap: 20px;
+  width: 392px;
+  height: 169px;
+  background: var(--BACKGROUND-COLOR);
+  border: 1px solid var(--BORDER-COLOR);
+  font-family: var(--FF);
+  border-radius: 8px;
+  z-index: 999;
+  position: absolute;
+  top:170px;
+  left: 1332px;
+}
+
+.price-modal h2 {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--FONT-COLOR);
+}
+
+.input-group {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container label {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  color: var(--FONT-COLOR);
+  pointer-events: none;
+}
+
+.input-container input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid var(--BORDER-COLOR);
+  border-radius: 8px;
+  outline: none;
+  color: var(--FONT-COLOR);
+}
+
+/* The asterisk for required fields */
+.input-container label .required {
+  color: var(--SECONDARY-COLOR);
+  font-size: 14px;
+  vertical-align: top;
+  margin-left: 2px;
+}
+
+.apply-button {
+  margin-left:230px;
+  width: 124px;
+  height: 41px;
+  padding: 12px;
+  background: var(--SECONDARY-COLOR);
+  color: var(--BACKGROUND-COLOR);
+  border: none;
+  border-radius: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  cursor: pointer;
 }

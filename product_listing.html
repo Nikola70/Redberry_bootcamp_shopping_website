@@ -108,5 +108,45 @@
     <p>1 2 3 ... 9 10</p>
     <img src="images/right_arrow_icon.png">
 </footer>
+
+    <div class="price-modal">
+        <h2>Select price</h2>
+        <div class="input-group">
+            <div class="input-container">
+                <label for="from">From <span class="required">*</span></label>
+                <input type="text" id="from">
+            </div>
+            <div class="input-container">
+                <label for="to">To <span class="required">*</span></label>
+                <input type="text" id="to">
+            </div>
+        </div>
+        <button class="apply-button">Apply</button>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const fromInput = document.getElementById('from');
+        const toInput = document.getElementById('to');
+
+        const inputs = [fromInput, toInput];
+
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                const label = document.querySelector(`label[for="${input.id}"]`);
+                if (label) {
+                    label.style.opacity = '0';
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                const label = document.querySelector(`label[for="${input.id}"]`);
+                if (label && input.value.trim() === '') {
+                    label.style.opacity = '1';
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
