@@ -1023,10 +1023,10 @@ hr {
   right: 0;
   background-color: var(--BACKGROUND-COLOR);
   font-family: var(--FF);
-  position: none;
+  position: fixed;
   z-index: 999;
   border-left: 1px solid var(--BORDER-COLOR);
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: space-between;
   padding: 40px;
