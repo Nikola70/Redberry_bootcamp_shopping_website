@@ -930,3 +930,44 @@ hr {
   font-size: 14px;
   cursor: pointer;
 }
+
+/* Sort by modal */
+
+.sort-by-modal {
+  box-sizing: border-box;
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 0px;
+  gap: 2px;
+  width: 223px;
+  height: 184px;
+  background: var(--BACKGROUND-COLOR);
+  border: 1px solid var(--BORDER-COLOR);
+  border-radius: 8px;
+  z-index: 999;
+  position: absolute;
+  top: 270px;
+  left: 1710px;
+  transform: translate(-50%, -50%);
+  width: 223px;
+  height: 184px;
+}
+
+.sort-by-modal h2 {
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--FONT-COLOR);
+  margin: 0;
+  padding: 0 16px;
+}
+
+.sort-option {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 16px;
+  color: var(--FONT-COLOR);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
