@@ -129,11 +129,20 @@
                     <h2>Product Name</h2>
                     <p class="product-checkout-color">Color</p>
                     <p class="product-checkout-size">L</p>
-                        <div class="quantity-info">
-                            <select name="quantity">
-                                <option value="1">1</option>
-                            </select>
-                        </div>
+                    <div class="quantity-selector">
+                        <button id="minus-button" aria-label="Decrease quantity">
+                            <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1H11" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <span id="quantity">1</span>
+                        <button id="plus-button" aria-label="Increase quantity">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 1V11" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1 6H11" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
                 </span>
                 
                 <span class="product-checkout-right-side">
@@ -185,5 +194,37 @@
             <button type="submit" class="pay-button start-shopping-button">Start shopping</button>
         </section>
     </aside>
+<script>
+        const minusButton = document.getElementById('minus-button');
+        const plusButton = document.getElementById('plus-button');
+        const quantitySpan = document.getElementById('quantity');
+
+        let quantity = 1;
+        const minQuantity = 1; // You can set the minimum quantity here
+
+        // Function to update the number and button states
+        function updateSelector() {
+            quantitySpan.textContent = quantity;
+            // Disable the minus button if the quantity is at the minimum
+            minusButton.disabled = (quantity <= minQuantity);
+        }
+
+        // Event listener for the plus button
+        plusButton.addEventListener('click', () => {
+            quantity++;
+            updateSelector();
+        });
+
+        // Event listener for the minus button
+        minusButton.addEventListener('click', () => {
+            if (quantity > minQuantity) {
+                quantity--;
+                updateSelector();
+            }
+        });
+
+        // Set the initial state when the page loads
+        updateSelector();
+    </script>
 </body>
 </html>

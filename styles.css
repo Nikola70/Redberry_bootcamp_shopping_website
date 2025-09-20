@@ -702,19 +702,60 @@ hr {
   letter-spacing: 0%;
 }
 
-.quantity-info select {
-  width: 70px;
-  height: 26px;
-  border-radius: 22px;
-  border: 1px solid var(--BORDER-COLOR);
-  padding: 4px 8px;
-  font-size: 12px;
-  font-family: var(--FF);
-  color: var(--FONT-COLOR-SECONDARY);
+.quantity-selector {
+  /* Frame 56 */
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 12px; /* Adjusted padding for better visual balance */
+  gap: 10px; /* Adjusted gap for better visual spacing */
+
+  width: 78px; /* Slightly adjusted width to accommodate spacing */
+  height: 28px;
+
+  /* Grey 2 */
   background-color: var(--BACKGROUND-COLOR);
-  outline: none;
+  border: 1px solid var(--BORDER-COLOR);
+  border-radius: 22px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+/* Styling for the buttons */
+.quantity-selector button {
+  background: none;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* When a button is disabled (like the minus button at 1) */
+.quantity-selector button:disabled {
+  cursor: not-allowed;
+}
+
+.quantity-selector button:disabled svg path {
+    stroke: #D1D5DB; /* A lighter grey to show it's inactive */
+}
+
+/* Style for the number display */
+.quantity-selector span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  min-width: 10px;
+  text-align: center;
+  user-select: none; /* Prevents selecting the number text when clicking */
 }
 
 .button-remove-item {
