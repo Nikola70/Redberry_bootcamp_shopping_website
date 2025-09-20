@@ -651,6 +651,14 @@ hr {
   margin-right: 190px;
 }
 
+.product-list {
+  flex-grow: 1;                 
+  display: flex;
+  flex-direction: column; 
+  gap: 20px;
+  margin-top: 50px;
+}
+
 .product-checkout-right-side {
   display: flex;
   flex-direction: column;
@@ -661,6 +669,8 @@ hr {
 .product-in-cart img{
   width: 100px;
   height: 134px;
+  border: 1px solid var(--BORDER-COLOR);
+  border-radius: 10px;
 }
 
 .product-checkout h2 {
@@ -970,4 +980,47 @@ hr {
   text-align: left;
   cursor: pointer;
   transition: background-color 0.2s;
+}
+
+/* Side cart modal */
+
+.side-cart {
+  width: 540px;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  background-color: var(--BACKGROUND-COLOR);
+  font-family: var(--FF);
+  position: fixed;
+  z-index: 999;
+  border-left: 1px solid var(--BORDER-COLOR);
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px;
+}
+
+.side-cart-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;  
+  align-items: center;
+}
+
+.side-cart-cross {
+  outline: none;
+  border: none;
+  width: 18px;
+  height: 18px;
+}
+
+.side-cart-item-image {
+  width: 100px;
+  height: 134px;
+}
+
+.side-cart-header h1 {
+  font-weight: 500;
+  font-size: 20px;
+  font-family: var(--FF);
 }
