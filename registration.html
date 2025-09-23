@@ -45,21 +45,25 @@
 
         <p class="username-message"></p>
         <div class="form-group">
-          <input type="text" id="username" name="username" placeholder="Username *" required>
+          <label for="username-reg">Username <span class="required">*</span></label>
+          <input type="text" id="username-reg" name="username-reg"required>
         </div>
         <p class="email-message"></p>
 
         <div class="form-group">
-          <input type="email" id="email" name="email" placeholder="Email *" required>
+          <label for="email-reg">Email <span class="required">*</span></label>
+          <input type="email" id="email-reg" name="email-reg" required>
         </div>
         
         <div class="form-group">
-          <input type="password" id="password" name="password" placeholder="Password *" required>
+          <label for="password-reg">Password <span class="required">*</span></label>
+          <input type="password" id="password-reg" name="password-reg" required>
         </div>
         <p class="password-message"></p>
 
         <div class="form-group">
-          <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password *" required>
+          <label for="confirm-password-reg">Confirm Password <span class="required">*</span></label>
+          <input type="password" id="confirm-password-reg" name="confirm-password-reg" required>
         </div>
         
         <button type="submit" class="login-button">Register</button>
@@ -69,6 +73,33 @@
 
     </div>
 </main>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const regUserInput = document.getElementById('username-reg');
+    const regEmailInput = document.getElementById('email-reg');
+    const regPasswordInput = document.getElementById('password-reg');
+    const regConfrimPasswordInput = document.getElementById('confirm-password-reg');
+    
+    const inputs = [regUserInput, regEmailInput, regPasswordInput, regConfrimPasswordInput];
+
+    inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                const label = document.querySelector(`label[for="${input.id}"]`);
+                if (label) {
+                    label.style.opacity = '0';
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                const label = document.querySelector(`label[for="${input.id}"]`);
+                if (label && input.value.trim() === '') {
+                    label.style.opacity = '1';
+                }
+            });
+        });
+});
+
+</script>
 <script src="scripts.js"></script>
 </body>
 </html>
