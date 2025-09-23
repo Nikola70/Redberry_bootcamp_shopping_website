@@ -1,3 +1,5 @@
+// Mkaes *s in the input fields red
+
 document.addEventListener('DOMContentLoaded', () => {
     const regUserInput = document.getElementById('username-reg');
     const regEmailInput = document.getElementById('email-reg');
@@ -31,119 +33,88 @@ const uploadBtn = document.querySelector(".profile-image-upload");
 const removeBtn = document.querySelector(".profile-image-remove");
 const avatarInput = document.getElementById("avatar");
 const defaultProfileIcon = document.querySelector(".default-profile-icon");
-const form = document.querySelector(".registration-form");
 
-// Handlers for profile image
+// Handle "Upload Now" → open file picker
 uploadBtn.addEventListener("click", (e) => {
   e.preventDefault();
   avatarInput.click();
 });
 
+// Handle file selection → show uploaded image instead of camera icon
 avatarInput.addEventListener("change", () => {
-  if (avatarInput.files.length === 0) return;
-
-  const file = avatarInput.files[0];
-
-  if (file.size > 1048576) {
-    alert("File size exceeds 1 MB.");
-    avatarInput.value = "";
-    return;
+  if (avatarInput.files && avatarInput.files[0]) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      defaultProfileIcon.src = e.target.result; // replace camera with uploaded image
+      defaultProfileIcon.classList.remove("default-profile-icon");
+      defaultProfileIcon.classList.add("profile-picture-icon");
+    };
+    reader.readAsDataURL(avatarInput.files[0]);
   }
-
-  if (!file.type.startsWith("image/")) {
-    alert("Only image files are allowed.");
-    avatarInput.value = "";
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    defaultProfileIcon.src = e.target.result;
-    defaultProfileIcon.classList.remove("default-profile-icon");
-    defaultProfileIcon.classList.add("profile-picture-icon");
-  };
-  reader.readAsDataURL(file);
 });
 
+// Handle "Remove" → reset back to camera icon
 removeBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  avatarInput.value = "";
-  defaultProfileIcon.src = "images/camera_icon.png";
-  defaultProfileIcon.classList.remove("profile-picture-icon");
-  defaultProfileIcon.classList.add("default-profile-icon");
+  avatarInput.value = ""; // clear file
+  defaultProfileIcon.src = "images/camera_icon.png"; // reset to default icon
 });
 
-// Handler for form submission
-form.addEventListener("submit", async (e) => {
+// Handle form submit → send registration request
+document.querySelector(".registration-form").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // Clear previous error messages
-  document.querySelectorAll(".error-message").forEach(el => el.innerText = "");
-
-  let isValid = true;
-
-  // Client-side validation
-  const username = document.getElementById("username").value;
-  if (username.length < 3) {
-    document.querySelector(".username-message").innerText = "Username must be at least 3 characters.";
-    isValid = false;
+  if (document.getElementById("username-reg").value.length < 3) {
+    document.querySelector(".username-message").innerText = "Username has to be at least 3 charachters"
   }
 
-  const password = document.getElementById("password").value;
-  const confirmPassword = document.getElementById("confirm-password").value;
-
-  if (password !== confirmPassword) {
-    document.querySelector(".password-message").innerText = "Passwords do not match.";
-    isValid = false;
+  if (document.getElementById("password-reg").value !== document.getElementById("confirm-password-reg").value) {
+    document.querySelector(".password-message").innerText = "Passwords do not match";
+    return;
   }
 
-  if (password.length < 3) {
-    document.querySelector(".password-message").innerText = "Password must be at least 3 characters.";
-    isValid = false;
+  if (document.getElementById("password-reg").value.length < 3) {
+    document.querySelector(".password-message").innerText = "Password has to be at least 3 charachters";
+    return;
   }
 
-  if (!isValid) {
-    return; // Stop if client-side validation fails
-  }
+  const formData = new FormData();
+  formData.append("username", document.getElementById("username-reg").value);
+  formData.append("email", document.getElementById("email-reg").value);
+  formData.append("password", document.getElementById("password-reg").value);
+  formData.append("password_confirmation", document.getElementById("confirm-password-reg").value);
 
-  const formData = new FormData(form);
   if (avatarInput.files.length > 0) {
     formData.append("avatar", avatarInput.files[0]);
   }
 
   try {
-  const response = await fetch("https://api.redseam.redberryinternship.ge/api/register", {
-    method: "POST",
-    body: formData
-  });
+    const response = await fetch("https://api.redseam.redberryinternship.ge/api/register", {
+      method: "POST",
+      body: formData
+    });
 
-  const userData = await response.json();
-  console.log("Response:", userData);
+    const userData = await response.json();
+    console.log("Response:", userData);
 
-  // Check if the response was successful
-  if (response.ok) {
-    window.location.href = "product_listing.html";
-    localStorage.setItem("token", userData.token);
-  } else {
-    // Handle API errors from the JSON body
-    const apiErrors = userData.errors;
+    if (response.ok) {
+      window.location.href = "product_listing.html";
+      localStorage.setItem("token", userData.token);
+    } else {
 
-    if (apiErrors.username) {
-      document.querySelector(".username-message").innerText = apiErrors.username[0];
+      const apiErrors = userData.errors;
+
+      // Example: show username and email errors in the page
+      if (apiErrors.username) {
+        document.querySelector(".username-message").innerText = apiErrors.username.join("This username already exsists");
+      }
+      if (apiErrors.email) {
+        document.querySelector(".email-message").innerText = apiErrors.email.join("This email already exsists");
+      }
     }
-    if (apiErrors.email) {
-      document.querySelector(".email-message").innerText = apiErrors.email[0];
-    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Something went wrong. Please try again.");
   }
-} catch (error) {
-  // This block is only for network-related errors
-  console.error("Error:", error);
-  alert("Something went wrong. Please try again.");
-}
 });
-
-
-// ===========================
-
-// LOGIN
 
