@@ -1,3 +1,30 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const regUserInput = document.getElementById('username-reg');
+    const regEmailInput = document.getElementById('email-reg');
+    const regPasswordInput = document.getElementById('password-reg');
+    const regConfrimPasswordInput = document.getElementById('confirm-password-reg');
+    const loginEmailInput = document.getElementById('email-login');
+    const loginPasswordInput = document.getElementById('password-login');
+    
+    const inputs = [regUserInput, regEmailInput, regPasswordInput, regConfrimPasswordInput, loginPasswordInput, loginEmailInput];
+
+        inputs.filter(input => input).forEach(input => {
+        input.addEventListener('focus', () => {
+            const label = document.querySelector(`label[for="${input.id}"]`);
+            if (label) {
+                label.style.opacity = '0';
+            }
+        });
+
+        input.addEventListener('blur', () => {
+            const label = document.querySelector(`label[for="${input.id}"]`);
+            if (label && input.value.trim() === '') {
+                label.style.opacity = '1';
+            }
+        });
+    });
+});
+
 /* Registration */
 
 const uploadBtn = document.querySelector(".profile-image-upload");

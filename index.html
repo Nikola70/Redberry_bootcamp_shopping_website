@@ -49,30 +49,6 @@
     </div>
 
 </main>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const loginEmailInput = document.getElementById('email-login');
-    const loginPasswordInput = document.getElementById('password-login');
-
-    const inputs = [loginEmailInput, loginPasswordInput];
-
-    inputs.forEach(input => {
-            input.addEventListener('focus', () => {
-                const label = document.querySelector(`label[for="${input.id}"]`);
-                if (label) {
-                    label.style.opacity = '0';
-                }
-            });
-
-            input.addEventListener('blur', () => {
-                const label = document.querySelector(`label[for="${input.id}"]`);
-                if (label && input.value.trim() === '') {
-                    label.style.opacity = '1';
-                }
-            });
-        });
-});
-
-</script>
+<script src="scripts.js"></script>
 </body>
 </html>

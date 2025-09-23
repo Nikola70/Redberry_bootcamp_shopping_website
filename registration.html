@@ -69,37 +69,10 @@
         <button type="submit" class="login-button">Register</button>
       </form>
 
-      <p class="register">Already a member? <a href="">Log  in</a></p>
+      <p class="register">Already a member? <a href="index.html">Log  in</a></p>
 
     </div>
 </main>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const regUserInput = document.getElementById('username-reg');
-    const regEmailInput = document.getElementById('email-reg');
-    const regPasswordInput = document.getElementById('password-reg');
-    const regConfrimPasswordInput = document.getElementById('confirm-password-reg');
-    
-    const inputs = [regUserInput, regEmailInput, regPasswordInput, regConfrimPasswordInput];
-
-    inputs.forEach(input => {
-            input.addEventListener('focus', () => {
-                const label = document.querySelector(`label[for="${input.id}"]`);
-                if (label) {
-                    label.style.opacity = '0';
-                }
-            });
-
-            input.addEventListener('blur', () => {
-                const label = document.querySelector(`label[for="${input.id}"]`);
-                if (label && input.value.trim() === '') {
-                    label.style.opacity = '1';
-                }
-            });
-        });
-});
-
-</script>
 <script src="scripts.js"></script>
 </body>
 </html>
