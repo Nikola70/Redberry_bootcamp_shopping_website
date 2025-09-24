@@ -35,18 +35,18 @@
 <nav>
     <h2>Products</h2>
 
-    <div class="filter">
+    <div class="filtering">
         <p class="result-count">Showing 1-10 of 100 results</p>
 
-        <span class="filter">
+        <button type="button" class="filter">
             <img src="images/filter_icon.png">
             <p>Filter</p>
-        </span>
+        </button>
 
-        <span class="sort">
+        <button type="button" class="sort">
             <p>Sort By</p>
             <img src="images/down_arrow_icon.png">
-        </span>
+        </button>
     </div>
 </nav>
 
@@ -126,34 +126,11 @@
 
     <div class="sort-by-modal">
       <h2>Sort by</h2>
-      <span class="sort-option">New products first</span>
-      <span class="sort-option">Price, low to high</span>
-      <span class="sort-option">Price, high to low</span>
+        <button type="button" class="sort-option js-newFirst">New products first</button>
+        <button type="button" class="sort-option js-lowToHigh">Price, low to high</button>
+        <button type="button" class="sort-option js-highToLow">Price, high to low</button>
     </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const fromInput = document.getElementById('from');
-        const toInput = document.getElementById('to');
-
-        const inputs = [fromInput, toInput];
-
-        inputs.forEach(input => {
-            input.addEventListener('focus', () => {
-                const label = document.querySelector(`label[for="${input.id}"]`);
-                if (label) {
-                    label.style.opacity = '0';
-                }
-            });
-
-            input.addEventListener('blur', () => {
-                const label = document.querySelector(`label[for="${input.id}"]`);
-                if (label && input.value.trim() === '') {
-                    label.style.opacity = '1';
-                }
-            });
-        });
-    });
-</script>
+<script src="listing.js"></script>
 </body>
 </html>

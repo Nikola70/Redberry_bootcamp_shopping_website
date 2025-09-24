@@ -262,11 +262,11 @@ nav h2 {
     font-weight: 600;
 }
 
-nav .filter {
+nav .filtering {
     display: flex;
     align-items: center;
     gap: 8px;
-}
+  }
 
 .result-count {
     font-size: 12px;
@@ -275,8 +275,8 @@ nav .filter {
     margin-right: 50px;
 }
 
-nav .filter .filter,
-nav .filter .sort {
+nav .filtering .filter,
+nav .filtering .sort {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -284,6 +284,12 @@ nav .filter .sort {
     font-size: 16px;
     font-weight: 400;
     color: var(--FONT-COLOR-SECONDARY);
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
 }
 
 .sort {
@@ -1045,7 +1051,10 @@ hr {
   color: var(--FONT-COLOR);
   text-align: left;
   cursor: pointer;
-  transition: background-color 0.2s;
+  background: none;
+  border: none;
+  font: inherit;
+  outline: inherit;
 }
 
 /* Side cart modal */
