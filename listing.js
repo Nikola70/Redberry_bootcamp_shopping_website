@@ -109,9 +109,14 @@ document.querySelector(`.js-highToLow`)
 
 // Filter Choice
 
-document.querySelector(`.`)
+let priceFrom = 0;
+let priceTo = 9999;
 
-    let priceFrom = document.querySelector(`.from`).value || 0;
-    let priceTo = 9999;
+document.querySelector(`.apply-filter-button`)
+    .addEventListener(`click`, () => {
+        priceFrom = parseFloar(document.querySelector(`#from`).value) || 0;
+        priceTo = parseFloat(document.querySelector(`#to`).value) || 9999;
+    })
+
 
 
