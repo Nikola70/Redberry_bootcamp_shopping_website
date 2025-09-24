@@ -5,10 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const regEmailInput = document.getElementById('email-reg');
     const regPasswordInput = document.getElementById('password-reg');
     const regConfrimPasswordInput = document.getElementById('confirm-password-reg');
-    const loginEmailInput = document.getElementById('email-login');
-    const loginPasswordInput = document.getElementById('password-login');
     
-    const inputs = [regUserInput, regEmailInput, regPasswordInput, regConfrimPasswordInput, loginPasswordInput, loginEmailInput];
+    const inputs = [regUserInput, regEmailInput, regPasswordInput, regConfrimPasswordInput];
 
         inputs.filter(input => input).forEach(input => {
         input.addEventListener('focus', () => {
@@ -117,4 +115,3 @@ document.querySelector(".registration-form").addEventListener("submit", async (e
     alert("Something went wrong. Please try again.");
   }
 });
-
