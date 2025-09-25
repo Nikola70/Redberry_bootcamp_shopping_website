@@ -61,6 +61,8 @@ removeBtn.addEventListener("click", (e) => {
 // Handle form submit → send registration request
 document.querySelector(".registration-form").addEventListener("submit", async (e) => {
   e.preventDefault();
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
 
   if (document.getElementById("username-reg").value.length < 3) {
     document.querySelector(".username-message").innerText = "Username has to be at least 3 charachters"
@@ -89,6 +91,9 @@ document.querySelector(".registration-form").addEventListener("submit", async (e
   try {
     const response = await fetch("https://api.redseam.redberryinternship.ge/api/register", {
       method: "POST",
+      headers: {
+        "Accept": "application/json"
+      },
       body: formData
     });
 
@@ -96,8 +101,10 @@ document.querySelector(".registration-form").addEventListener("submit", async (e
     console.log("Response:", userData);
 
     if (response.ok) {
-      window.location.href = "product_listing.html";
       localStorage.setItem("token", userData.token);
+      localStorage.setItem("user", JSON.stringify(userData.user));
+
+      window.location.href = "product_listing.html";
     } else {
 
       const apiErrors = userData.errors;

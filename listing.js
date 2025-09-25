@@ -71,22 +71,21 @@ document.querySelector(`.sort`)
 
 // Sets sets header picture to defualt avatar or users picture if it exsists
 
-const userString = localStorage.getItem("user");
+const userData = localStorage.getItem("user");
+console.log(userData)
 
 let avatarSrc = "images/avatar_icon.png";
 
-if (userString) {
-
-    const user = JSON.parse(userString); 
-    avatarSrc = user.profile_photo || avatarSrc; 
+if (userData) {
+  const user = JSON.parse(userData); 
+  avatarSrc = user.avatar || avatarSrc;
 }
 
 document.querySelector(`.right-side`).innerHTML = 
-    `<button type="button" class="to-cart">
-        <img src="images/cart_icon.png">
-    </button>
-    <img src="${avatarSrc}" class="avatar">`;
-
+  `<button type="button" class="to-cart">
+      <img src="images/cart_icon.png">
+  </button>
+  <img src="${avatarSrc}" class="avatar">`;
 
 // Sort choice 
 
@@ -118,5 +117,6 @@ document.querySelector(`.apply-filter-button`)
         priceTo = parseFloat(document.querySelector(`#to`).value) || 9999;
     })
 
+// Products
 
 
