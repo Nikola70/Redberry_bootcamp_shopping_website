@@ -194,37 +194,6 @@
             <button type="submit" class="pay-button start-shopping-button">Start shopping</button>
         </section>
     </aside>
-<script>
-        const minusButton = document.getElementById('minus-button');
-        const plusButton = document.getElementById('plus-button');
-        const quantitySpan = document.getElementById('quantity');
-
-        let quantity = 1;
-        const minQuantity = 1; // You can set the minimum quantity here
-
-        // Function to update the number and button states
-        function updateSelector() {
-            quantitySpan.textContent = quantity;
-            // Disable the minus button if the quantity is at the minimum
-            minusButton.disabled = (quantity <= minQuantity);
-        }
-
-        // Event listener for the plus button
-        plusButton.addEventListener('click', () => {
-            quantity++;
-            updateSelector();
-        });
-
-        // Event listener for the minus button
-        minusButton.addEventListener('click', () => {
-            if (quantity > minQuantity) {
-                quantity--;
-                updateSelector();
-            }
-        });
-
-        // Set the initial state when the page loads
-        updateSelector();
-    </script>
+<script src="item.js"></script>
 </body>
 </html>

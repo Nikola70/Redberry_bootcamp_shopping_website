@@ -186,7 +186,7 @@ async function loadProducts(page = 1) {
                 <h3 class="product-name">${product.name}</h3>
                 <p class="product-price">$${product.price}</p>
             </article>
-        </section
+        </section>
     `;
     document.querySelector(".product-listing-main").innerHTML = `
       ${html}
@@ -207,8 +207,5 @@ async function loadProducts(page = 1) {
 
   pagination(productListings.meta, page);
 }
-
-
-
 
 loadProducts();
