@@ -94,16 +94,25 @@ let sortChoice = `created_at`
 document.querySelector(`.js-newFirst`)
     .addEventListener(`click`, () => {
         sortChoice = `created_at`;
+        document.querySelector(`.sort-by-modal`).style.display = `none`;
+        sortByModalDisplay = false;
+        loadProducts();
     })
 
 document.querySelector(`.js-lowToHigh`)
     .addEventListener(`click`, () => {
         sortChoice = `price`;
+        document.querySelector(`.sort-by-modal`).style.display = `none`;
+        sortByModalDisplay = false;
+        loadProducts();
     })
 
 document.querySelector(`.js-highToLow`)
     .addEventListener(`click`, () => {
         sortChoice = `-price`;
+        document.querySelector(`.sort-by-modal`).style.display = `none`;
+        sortByModalDisplay = false;
+        loadProducts();
     })
 
 // Filter Choice
@@ -113,10 +122,75 @@ let priceTo = 9999;
 
 document.querySelector(`.apply-filter-button`)
     .addEventListener(`click`, () => {
-        priceFrom = parseFloar(document.querySelector(`#from`).value) || 0;
+        priceFrom = parseFloat(document.querySelector(`#from`).value) || 0;
         priceTo = parseFloat(document.querySelector(`#to`).value) || 9999;
+        document.querySelector(`.price-modal`).style.display = `none`;
+        priceModalDisplay = false; 
+        loadProducts();
     })
 
 // Products
 
+async function loadProducts(page = 1) {
+  const url = new URL("https://api.redseam.redberryinternship.ge/api/products");
+  url.searchParams.append("page", page);
+  url.searchParams.append("filter[price_from]", priceFrom);
+  url.searchParams.append("filter[price_to]", priceTo);
+  url.searchParams.append("sort", sortChoice);
 
+  const response = await fetch(url, {
+    method: "GET",
+    headers: { "Accept": "application/json" }
+  });
+
+  const productListings = await response.json();
+
+  let html = '';
+  productListings.data.forEach(product => {
+    html += `
+    <section class="product-list">
+        <a href="https://api.redseam.redberryinternship.ge/api/products/${product.id}">
+            <article class="product">
+                <img class="product-image" src="${product.cover_image}">
+                <h3 class="product-name">${product.name}</h3>
+                <p class="product-price">$${product.price}</p>
+            </article>
+        </a>
+    </section>
+    `;
+    document.querySelector(".product-listing-main").innerHTML = `
+      ${html}
+  `;
+  });
+
+  pagination(productListings.meta, page);
+}
+
+function pagination(meta, currentPage) {
+  const footer = document.querySelector("footer");
+  footer.innerHTML = `
+    <img src="images/left_arrow_icon.png" id="prevPage">
+    <p class="pageNumbers"></p>
+    <img src="images/right_arrow_icon.png" id="nextPage">
+  `;
+
+  const pageNumbers = document.querySelector(".pageNumbers");
+
+  for (let i = 1; i <= meta.last_page; i++) {
+    pageNumbers.innerHTML += `<span class="${i === currentPage ? 'active' : ''}">${i} </span>`;
+  }
+
+document.getElementById("prevPage").addEventListener("click", () => {
+  if (currentPage > 1) loadProducts(currentPage - 1);
+});
+
+document.getElementById("nextPage").addEventListener("click", () => {
+  if (currentPage < meta.last_page) loadProducts(currentPage + 1);
+});
+pageNumbers.querySelectorAll("span").forEach((span, index) => {
+  span.addEventListener("click", () => loadProducts(index + 1));
+});
+}
+
+
+loadProducts();
