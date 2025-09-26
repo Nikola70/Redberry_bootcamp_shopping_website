@@ -131,6 +131,32 @@ document.querySelector(`.apply-filter-button`)
 
 // Products
 
+function pagination(meta, currentPage) {
+  const footer = document.querySelector("footer");
+  footer.innerHTML = `
+    <img src="images/left_arrow_icon.png" id="prevPage">
+    <p class="pageNumbers"></p>
+    <img src="images/right_arrow_icon.png" id="nextPage">
+  `;
+
+  const pageNumbers = document.querySelector(".pageNumbers");
+
+  for (let i = 1; i <= meta.last_page; i++) {
+    pageNumbers.innerHTML += `<span class="${i === currentPage ? 'active' : ''}">${i} </span>`;
+  }
+
+document.getElementById("prevPage").addEventListener("click", () => {
+  if (currentPage > 1) loadProducts(currentPage - 1);
+});
+
+document.getElementById("nextPage").addEventListener("click", () => {
+  if (currentPage < meta.last_page) loadProducts(currentPage + 1);
+});
+pageNumbers.querySelectorAll("span").forEach((span, index) => {
+  span.addEventListener("click", () => loadProducts(index + 1));
+});
+}
+
 async function loadProducts(page = 1) {
   const url = new URL("https://api.redseam.redberryinternship.ge/api/products");
   url.searchParams.append("page", page);
@@ -161,36 +187,15 @@ async function loadProducts(page = 1) {
     document.querySelector(".product-listing-main").innerHTML = `
       ${html}
   `;
+    document.querySelector(".result-count").innerHTML = `
+    Showing ${productListings.meta.from}-${productListings.meta.to} of ${productListings.meta.total} results
+  `;
   });
 
   pagination(productListings.meta, page);
 }
 
-function pagination(meta, currentPage) {
-  const footer = document.querySelector("footer");
-  footer.innerHTML = `
-    <img src="images/left_arrow_icon.png" id="prevPage">
-    <p class="pageNumbers"></p>
-    <img src="images/right_arrow_icon.png" id="nextPage">
-  `;
 
-  const pageNumbers = document.querySelector(".pageNumbers");
-
-  for (let i = 1; i <= meta.last_page; i++) {
-    pageNumbers.innerHTML += `<span class="${i === currentPage ? 'active' : ''}">${i} </span>`;
-  }
-
-document.getElementById("prevPage").addEventListener("click", () => {
-  if (currentPage > 1) loadProducts(currentPage - 1);
-});
-
-document.getElementById("nextPage").addEventListener("click", () => {
-  if (currentPage < meta.last_page) loadProducts(currentPage + 1);
-});
-pageNumbers.querySelectorAll("span").forEach((span, index) => {
-  span.addEventListener("click", () => loadProducts(index + 1));
-});
-}
 
 
 loadProducts();
