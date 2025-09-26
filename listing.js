@@ -158,6 +158,12 @@ pageNumbers.querySelectorAll("span").forEach((span, index) => {
 }
 
 async function loadProducts(page = 1) {
+
+//Removes item Id it is stored
+  
+  localStorage.removeItem(`productId`);
+  
+// loads products based on users input
   const url = new URL("https://api.redseam.redberryinternship.ge/api/products");
   url.searchParams.append("page", page);
   url.searchParams.append("filter[price_from]", priceFrom);
@@ -174,15 +180,13 @@ async function loadProducts(page = 1) {
   let html = '';
   productListings.data.forEach(product => {
     html += `
-    <section class="product-list">
-        <a href="https://api.redseam.redberryinternship.ge/api/products/${product.id}">
+        <section class="product-list" data-id="${product.id}">        
             <article class="product">
                 <img class="product-image" src="${product.cover_image}">
                 <h3 class="product-name">${product.name}</h3>
                 <p class="product-price">$${product.price}</p>
             </article>
-        </a>
-    </section>
+        </section
     `;
     document.querySelector(".product-listing-main").innerHTML = `
       ${html}
@@ -191,6 +195,15 @@ async function loadProducts(page = 1) {
     Showing ${productListings.meta.from}-${productListings.meta.to} of ${productListings.meta.total} results
   `;
   });
+
+  document.querySelectorAll(".product-list").forEach(product => {
+  product.addEventListener("click", () => {
+    const productId = product.dataset.id;
+    localStorage.setItem("productId", productId);
+
+    window.location.href = "product_item.html"; 
+  });
+});
 
   pagination(productListings.meta, page);
 }
