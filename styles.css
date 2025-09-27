@@ -388,7 +388,11 @@ footer p {
     flex-direction: row;
     gap: 20px;
     width: 704px;
-  
+    margin-bottom: 50px; 
+}
+
+.product-page-container a {
+  text-decoration: none;
 }
 
 .listing-product {
@@ -502,11 +506,6 @@ footer p {
     color: var(--FONT-COLOR);
     background-color: var(--BACKGROUND-COLOR);
     cursor: pointer;
-}
-
-.size-button:focus {
-    color: var(--FONT-COLOR);
-    border: 1px solid var(--FONT-COLOR);
 }
 
 .quantity-info {

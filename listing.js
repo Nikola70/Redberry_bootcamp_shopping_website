@@ -72,7 +72,6 @@ document.querySelector(`.sort`)
 // Sets sets header picture to defualt avatar or users picture if it exsists
 
 const userData = localStorage.getItem("user");
-console.log(userData)
 
 let avatarSrc = "images/avatar_icon.png";
 

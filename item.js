@@ -8,6 +8,23 @@ async function loadItem(productId) {
 
     const data = await response.json();
 
+    // Sets sets header picture to defualt avatar or users picture if it exsists
+
+    const userData = localStorage.getItem("user");
+
+    let avatarSrc = "images/avatar_icon.png";
+
+    if (userData) {
+    const user = JSON.parse(userData); 
+    avatarSrc = user.avatar || avatarSrc;
+    }
+
+    document.querySelector(`.right-side`).innerHTML = 
+    `<button type="button" class="to-cart">
+        <img src="images/cart_icon.png">
+    </button>
+    <img src="${avatarSrc}" class="avatar">`;
+
     const productHTML = `           
             <section class="product-images">
                 <div class="image-previews">
@@ -23,13 +40,13 @@ async function loadItem(productId) {
                 <h3 class="product-price">$ ${data.price}</h3>
 
                 <div class="color-info">
-                    <p>Color: Baby pink</p>
+                    <p class="js-color-text"></p>
                     <div class="color-buttons">
                     </div>
                 </div>
 
                 <div class="size-info">
-                    <p>Size: L</p>
+                    <p class="js-size-text"></p>
                     <div class="size-buttons">
                     </div>
                 </div>
@@ -82,6 +99,7 @@ async function loadItem(productId) {
         const colorBtn = document.createElement("button");
         colorBtn.className = "color-button";
         colorBtn.type = "button";
+        colorBtn.dataset.id = color;
         colorBtn.style.backgroundColor = color;
         document.querySelector(`.color-buttons`)
             .append(colorBtn);
@@ -91,6 +109,7 @@ async function loadItem(productId) {
         const sizeBtn = document.createElement("button");
         sizeBtn.className = "size-button";
         sizeBtn.type = "button";
+        sizeBtn.dataset.id = size;
         sizeBtn.innerText = size;
         document.querySelector(`.size-buttons`)
             .append(sizeBtn);
@@ -98,6 +117,8 @@ async function loadItem(productId) {
 
     imageSelector();
     updateSelector();
+    colorHighlighter();
+    sizeHighlighter();
 };
 
 loadItem(productId);
@@ -135,5 +156,45 @@ function imageSelector() {
             coverImage.src = image.src;
     })
 })
-}
+};
 
+// Change color name based on which color is selected
+
+function colorHighlighter() {
+    const colorButton = document.querySelectorAll(`.color-button`);
+
+    colorButton.forEach( (button) => {
+        button.addEventListener(`click`, () => {
+            //removes outline from other color buttons
+            colorButton.forEach((button) => button.style.outline = `none`);
+
+            //Adds outline to selected color
+            button.style.outline = `3px solid var(--BORDER-COLOR)`;
+            button.style.outlineOffset = `5px`;
+
+            //Displays text of a selected color
+            document.querySelector(`.js-color-text`)
+                .innerText = button.dataset.id;
+    });
+});
+};
+
+// Change size text and highlight selected size
+
+function sizeHighlighter() {
+    const sizeButton = document.querySelectorAll(`.size-button`);
+
+    sizeButton.forEach( (button) => {                
+        button.addEventListener(`click`, () => {
+            //Removes styles from other size button
+            sizeButton.forEach((button) => button.style.border = `1px solid var(--BORDER-COLOR)`);
+
+            //Highligh selected size button
+            button.style.border = `1px solid var(--FONT-COLOR)`;
+            
+            //Displays text of a selecte size
+            document.querySelector(`.js-size-text`)
+                .innerText = `Size: ${button.innerText}`
+    });
+});
+};
