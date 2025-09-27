@@ -90,8 +90,8 @@ body {
 
 /*  Login container */
 .login-container {
-  width: 420px;
-  margin-left: 250px;
+  width: 554px;
+  margin-left: 180px;
   margin-top: 200px;
   display: flex;
   flex-direction: column;
