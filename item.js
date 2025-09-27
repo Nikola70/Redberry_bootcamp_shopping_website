@@ -256,4 +256,106 @@ function addItemToCart() {
                 alert("Network error. Please check your connection and try again.");
             }
         })
+};
+
+// Open sart on the side
+
+function openSideCart() {
+    document.querySelector(`.to-cart`)
+        .addEventListener(`click`, async () => {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                alert("Please log in first.");
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://api.redseam.redberryinternship.ge/api/cart`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.length === 0) {
+                    document.querySelector(`.empty-side-cart`).style.display = `flex`;
+                } else {
+                    const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                    const sideHTMLMain = `
+                    <span class="side-cart-header">
+                        <h1>Shopping cart (${data.length})</h1>
+                        <button class="side-cart-cross">
+                            <img src="images/cross_icon.png">
+                        </button>
+                    </span>
+                    <section class="product-list">
+                    </section>
+                    <section class="price-calculation">
+
+                    <span class="item-subtotal">
+                        <h3>Item Subtotal</h3>
+                        <h3>$ ${totalPrice}</h3>
+                    </span>
+
+                    <span class="delivery-fee">
+                        <h3>Delivery</h3>
+                        <h3>$5</h3>
+                    </span>
+
+                    <span class="total-price">
+                    <h2>Total</h2>
+                    <h2>$ ${totalPrice + 5}</h2>
+                    </span>
+
+                    <button type="submit" class="pay-button">Go to checkout</button>
+
+                </section>
+                    `
+                    document.querySelector(`.side-cart`).style.display = `flex`;
+                    document.querySelector(`.side-cart`).innerHTML = sideHTMLMain;
+                    data.forEach((item) => {
+                        document.createElement(`section`);
+                        sideCartItemHTML = `
+                        <section class="product-in-cart ">
+
+                            <img src="${data.cover_image}">
+
+                            <span class="product-checkout">            
+                                <h2>${data.name}</h2>
+                                <p class="product-checkout-color">${data.color}</p>
+                                <p class="product-checkout-size">M</p>
+                                <div class="quantity-selector">
+                                    <button id="minus-button">
+                                        <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 1H11" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                    <span id="quantity">${data.quantity}</span>
+                                    <button id="plus-button" aria-label="Increase quantity">
+                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6 1V11" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M1 6H11" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </span>
+                            
+                            <span class="product-checkout-right-side">
+
+                                <h2>$ ${data.total_price}</h2>
+
+                                <button type="button" class="button-remove-item">Remove</button>
+                            </span>
+                        </section>
+                        `
+                    })
+                }
+
+            } catch (error) {
+                console.error("Error fetching cart:", error);
+            }
+        });
 }
