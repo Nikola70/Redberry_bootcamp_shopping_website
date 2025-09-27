@@ -15,7 +15,7 @@ async function loadItem(productId) {
             </section>
 
             <div class="main-image-container">
-                <img src="${data.cover_image}">
+                <img class="cover-image" src="${data.cover_image}">
             </div>
             
             <section class="product-info">
@@ -25,20 +25,12 @@ async function loadItem(productId) {
                 <div class="color-info">
                     <p>Color: Baby pink</p>
                     <div class="color-buttons">
-                        <button type="button" class="color-button"></button>
-                        <button type="button" class="color-button"></button>
-                        <button type="button" class="color-button"></button>
                     </div>
                 </div>
 
                 <div class="size-info">
                     <p>Size: L</p>
                     <div class="size-buttons">
-                        <button type="button" class="size-button">XS</button>
-                        <button type="button" class="size-button">S</button>
-                        <button type="button" class="size-button">M</button>
-                        <button type="button" class="size-button">L</button>
-                        <button type="button" class="size-button">XL</button>
                     </div>
                 </div>
 
@@ -77,6 +69,35 @@ async function loadItem(productId) {
 
     document.querySelector(`.product-details`)
         .innerHTML = productHTML;
+
+    data.images.forEach( (image) => {
+        const img = document.createElement("img");
+        img.src = image;
+        img.className = "item-image";
+        document.querySelector(`.image-previews`)
+            .append(img);
+    });
+
+    data.available_colors.forEach((color) => {
+        const colorBtn = document.createElement("button");
+        colorBtn.className = "color-button";
+        colorBtn.type = "button";
+        colorBtn.style.backgroundColor = color;
+        document.querySelector(`.color-buttons`)
+            .append(colorBtn);
+    })
+
+    data.available_sizes.forEach((size) => {
+        const sizeBtn = document.createElement("button");
+        sizeBtn.className = "size-button";
+        sizeBtn.type = "button";
+        sizeBtn.innerText = size;
+        document.querySelector(`.size-buttons`)
+            .append(sizeBtn);
+    });
+
+    imageSelector();
+    updateSelector();
 };
 
 loadItem(productId);
@@ -86,29 +107,33 @@ const plusButton = document.getElementById('plus-button');
 const quantitySpan = document.getElementById('quantity');
 
 let quantity = 1;
-const minQuantity = 1;
 
 // Function to update the number and button states
 function updateSelector() {
     quantitySpan.textContent = quantity;
-    // Disable the minus button if the quantity is at the minimum
-    minusButton.disabled = (quantity <= minQuantity);
+    minusButton.disabled = (quantity <= 1);
 }
-
-// Event listener for the plus button
-plusButton.addEventListener('click', () => {
-    quantity++;
-    updateSelector();
+    plusButton.addEventListener('click', () => {
+        quantity++;
+        updateSelector();
 });
 
-// Event listener for the minus button
 minusButton.addEventListener('click', () => {
-    if (quantity > minQuantity) {
+    if (quantity > 1) {
         quantity--;
         updateSelector();
     }
 });
 
-// Set the initial state when the page loads
-updateSelector();
+
+// changes cover image, when other image is selected
+function imageSelector() {
+    let coverImage = document.querySelector(`.cover-image`)
+
+    document.querySelectorAll(`.item-image`).forEach( (image) => {
+        image.addEventListener(`click`, () => {
+            coverImage.src = image.src;
+    })
+})
+}
 

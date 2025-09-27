@@ -434,10 +434,11 @@ footer p {
     justify-content: space-between;
 }
 
-.product-info h1 {
+.product-info h2 {
     font-size: 32px;
     font-weight: 600;
     line-height: 48px;
+    text-transform: capitalize;
 }
 
 .product-info .product-price {
@@ -471,13 +472,12 @@ footer p {
     height: 48px;
     border-radius: 50%;
     cursor: pointer;
-    border: 1px solid var(--BORDER-COLOR);
-    background-size: cover;
-    background-position: center;
+    border: none;
 }
 
-.color-button.active {
-    border: 2px solid var(--SECONDARY-COLOR);
+.color-button:focus {
+  outline: 3px solid var(--BORDER-COLOR);
+  outline-offset: 5px;
 }
 
 .size-buttons {
@@ -502,13 +502,11 @@ footer p {
     color: var(--FONT-COLOR);
     background-color: var(--BACKGROUND-COLOR);
     cursor: pointer;
-    opacity: 0.8;
 }
 
-.size-button.active {
-    background-color: #F8F6F7;
+.size-button:focus {
+    color: var(--FONT-COLOR);
     border: 1px solid var(--FONT-COLOR);
-    opacity: 1;
 }
 
 .quantity-info {
