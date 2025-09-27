@@ -1,4 +1,6 @@
 const productId = localStorage.getItem(`productId`);
+let color = 0;
+let size = 0;
 
 async function loadItem(productId) {
     const response = await fetch(`https://api.redseam.redberryinternship.ge/api/products/${productId}`, {
@@ -53,7 +55,7 @@ async function loadItem(productId) {
 
                 <div class="quantity-info">
                     <p>Quantity</p>
-                    <select name="quantity">
+                    <select name="quantity" class = "js-quantity-selector">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -119,6 +121,7 @@ async function loadItem(productId) {
     updateSelector();
     colorHighlighter();
     sizeHighlighter();
+    addItemToCart();
 };
 
 loadItem(productId);
@@ -126,8 +129,6 @@ loadItem(productId);
 const minusButton = document.getElementById('minus-button');
 const plusButton = document.getElementById('plus-button');
 const quantitySpan = document.getElementById('quantity');
-
-let quantity = 1;
 
 // Function to update the number and button states
 function updateSelector() {
@@ -158,7 +159,7 @@ function imageSelector() {
 })
 };
 
-// Change color name based on which color is selected
+// Changes and saves color name based on which color is selected
 
 function colorHighlighter() {
     const colorButton = document.querySelectorAll(`.color-button`);
@@ -175,11 +176,14 @@ function colorHighlighter() {
             //Displays text of a selected color
             document.querySelector(`.js-color-text`)
                 .innerText = button.dataset.id;
+
+            //save users color choice
+            color = button.dataset.id;
     });
 });
 };
 
-// Change size text and highlight selected size
+// Changes and saves size choice and highlightes selected size
 
 function sizeHighlighter() {
     const sizeButton = document.querySelectorAll(`.size-button`);
@@ -195,6 +199,61 @@ function sizeHighlighter() {
             //Displays text of a selecte size
             document.querySelector(`.js-size-text`)
                 .innerText = `Size: ${button.innerText}`
+            
+            //Save users size choice
+            size = button.innerText;
     });
 });
 };
+
+// Adds item to cart, if user is signed in
+
+function addItemToCart() {
+    document.querySelector(`.add-to-cart-button`)
+        .addEventListener(`click`, async () => {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                alert("You need to be signed in to add items to cart");
+                return;
+            }
+
+            // makes sure color os selected
+            if (color === 0) {
+                alert("Please select a color");
+                return;
+            }
+
+            // makes sure color os selected
+            if (size === 0) {
+                alert("Please select a size");
+                return;
+            }
+
+            let quantity = document.querySelector(`.js-quantity-selector`).value;
+
+            try {                
+                const response = await fetch(`https://api.redseam.redberryinternship.ge/api/cart/products/${productId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        color: color,
+                        size: size,
+                        quantity: quantity
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert("Item added to cart successfully!");
+                    console.log("Added to cart:", data);
+                } 
+            } catch (error) {
+                console.error("Error adding item to cart:", error);
+                alert("Network error. Please check your connection and try again.");
+            }
+        })
+}
