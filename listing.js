@@ -277,9 +277,9 @@ async function renderSideCart() {
                         <p class="product-checkout-color">${item.color}</p>
                         <p class="product-checkout-size">M</p>
                         <div class="quantity-selector">
-                            <button id="minus-button">-</button>
-                            <span id="quantity">${item.quantity}</span>
-                            <button id="plus-button">+</button>
+                            <button class="minus-button">-</button>
+                                <span class="quantity">${item.quantity}</span>
+                            <button class="plus-button">+</button>
                         </div>
                     </span>
                     <span class="product-checkout-right-side">
@@ -289,6 +289,66 @@ async function renderSideCart() {
                 </section>
             `;
             document.querySelector(`.js-product-list`).innerHTML += sideCartItemHTML;
+        });
+        document.querySelectorAll('.product-in-cart').forEach(product => {
+            const minusButton = product.querySelector('.minus-button');
+            const plusButton = product.querySelector('.plus-button');
+            const quantitySpan = product.querySelector('.quantity');
+            const productId = product.querySelector('.button-remove-item').dataset.id;
+
+            let quantity = parseInt(quantitySpan.innerText);
+
+            // Update the UI and button states
+            function updateSelector() {
+                quantitySpan.innerText = quantity;
+                minusButton.disabled = (quantity <= 1);
+            };
+
+            // Update quantity on the server
+            async function updateCartQuantity(newQuantity) {
+                const token = localStorage.getItem("token");
+                if (!token) {
+                    console.error("User not logged in");
+                    return;
+                }
+
+                try {
+                    const response = await fetch(
+                        `https://api.redseam.redberryinternship.ge/api/cart/products/${productId}`,
+                        {
+                            method: 'PATCH',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({ quantity: newQuantity })
+                        }
+                    );
+
+                } catch (error) {
+                    console.error("Error updating cart quantity:", error);
+                }
+            }
+
+            plusButton.addEventListener('click', async () => {
+                quantity++;
+                updateSelector();
+                await updateCartQuantity(quantity);
+                renderSideCart();
+            });
+
+            minusButton.addEventListener('click', async () => {
+                if (quantity > 1) {
+                    quantity--;
+                    updateSelector();
+                    await updateCartQuantity(quantity);
+                    renderSideCart();
+                }
+            });
+
+
+            updateSelector();
         });
 
         document.querySelectorAll(`.button-remove-item`).forEach(button => {

@@ -722,6 +722,7 @@ hr {
   height: 134px;
   border: 1px solid var(--BORDER-COLOR);
   border-radius: 10px;
+  margin-right: 5px;
 }
 
 .product-checkout h2 {
