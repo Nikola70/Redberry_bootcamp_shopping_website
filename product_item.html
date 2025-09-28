@@ -108,7 +108,7 @@
     <aside class="empty-side-cart">
         <span class="side-cart-header">
             <h1>Shopping cart (0)</h1>
-            <button class="side-cart-cross">
+            <button type="button" class="side-cart-cross" onclick="document.querySelector(`.empty-side-cart`).style.display = `none`;">
                 <img src="images/cross_icon.png">
             </button>
         </span>
@@ -121,7 +121,7 @@
 
             <p>You’ve got nothing in your cart just yet...</p>
 
-            <button type="submit" class="pay-button start-shopping-button">Start shopping</button>
+            <button type="submit" class="pay-button start-shopping-button js-start-shopping">Start shopping</button>
         </section>
     </aside>
 <script src="item.js"></script>
