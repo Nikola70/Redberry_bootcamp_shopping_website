@@ -262,114 +262,128 @@ function addItemToCart() {
         })
 };
 
-// Open cart on the side
+// Renders side cart
 
-function openSideCart() {
-    document.querySelector(`.to-cart`)
-        .addEventListener(`click`, async () => {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                alert("Please log in first.");
-                return;
+async function renderSideCart() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("Please log in first.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://api.redseam.redberryinternship.ge/api/cart`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
+        });
 
-            try {
-                const response = await fetch(`https://api.redseam.redberryinternship.ge/api/cart`, {
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
+        const data = await response.json();
+        console.log(data);
 
-                const data = await response.json();
-                console.log(data);
+        if (data.length === 0) {
+            document.querySelector(`.empty-side-cart`).style.display = `flex`;
+            return;
+        }
 
-                if (data.length === 0) {
-                    document.querySelector(`.empty-side-cart`).style.display = `flex`;
-                } else {
-                    const totalPrice = data.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                    const sideHTMLMain = `
-                    <span class="side-cart-header">
-                        <h1>Shopping cart (${data.length})</h1>
-                        <button class="side-cart-cross" onclick="document.querySelector('.side-cart').style.display = 'none';">
-                            <img src="images/cross_icon.png">
-                        </button>
-                    </span>
-                    <section class="js-product-list">
-                    </section>
-                    <section class="price-calculation">
+        const totalPrice = data.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-                    <span class="item-subtotal">
-                        <h3>Item Subtotal</h3>
-                        <h3>$ ${totalPrice}</h3>
-                    </span>
-
-                    <span class="delivery-fee">
-                        <h3>Delivery</h3>
-                        <h3>$5</h3>
-                    </span>
-
-                    <span class="total-price">
+        const sideHTMLMain = `
+            <span class="side-cart-header">
+                <h1>Shopping cart (${data.length})</h1>
+                <button class="side-cart-cross" onclick="document.querySelector('.side-cart').style.display = 'none';">
+                    <img src="images/cross_icon.png">
+                </button>
+            </span>
+            <section class="js-product-list"></section>
+            <section class="price-calculation">
+                <span class="item-subtotal">
+                    <h3>Item Subtotal</h3>
+                    <h3>$ ${totalPrice}</h3>
+                </span>
+                <span class="delivery-fee">
+                    <h3>Delivery</h3>
+                    <h3>$5</h3>
+                </span>
+                <span class="total-price">
                     <h2>Total</h2>
                     <h2>$ ${totalPrice + 5}</h2>
+                </span>
+                <button type="submit" class="pay-button">Go to checkout</button>
+            </section>
+        `;
+
+        document.querySelector(`.side-cart`).style.display = `flex`;
+        document.querySelector(`.side-cart`).innerHTML = sideHTMLMain;
+
+        data.forEach((item) => {
+            const sideCartItemHTML = `
+                <section class="product-in-cart js-clear-${item.id}">
+                    <img src="${item.cover_image}">
+                    <span class="product-checkout">            
+                        <h2>${item.name}</h2>
+                        <p class="product-checkout-color">${item.color}</p>
+                        <p class="product-checkout-size">M</p>
+                        <div class="quantity-selector">
+                            <button id="minus-button">-</button>
+                            <span id="quantity">${item.quantity}</span>
+                            <button id="plus-button">+</button>
+                        </div>
                     </span>
-
-                    <button type="submit" class="pay-button">Go to checkout</button>
-
+                    <span class="product-checkout-right-side">
+                        <h2>$ ${item.total_price}</h2>
+                        <button type="button" class="button-remove-item" data-id="${item.id}">Remove</button>
+                    </span>
                 </section>
-                    `
-                    document.querySelector(`.side-cart`).style.display = `flex`;
-                    document.querySelector(`.side-cart`).innerHTML = sideHTMLMain;         
-                              
-                    let sideCartItemHTML = ``
-
-                    data.forEach((item) => {
-                        document.createElement(`section`);
-                        sideCartItemHTML = `
-                        <section class="product-in-cart ">
-
-                            <img src="${item.cover_image}">
-
-                            <span class="product-checkout">            
-                                <h2>${item.name}</h2>
-                                <p class="product-checkout-color">${item.color}</p>
-                                <p class="product-checkout-size">M</p>
-                                <div class="quantity-selector">
-                                    <button id="minus-button">
-                                        <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1 1H11" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </button>
-                                    <span id="quantity">${item.quantity}</span>
-                                    <button id="plus-button" aria-label="Increase quantity">
-                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6 1V11" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M1 6H11" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </span>
-                            
-                            <span class="product-checkout-right-side">
-
-                                <h2>$ ${item.total_price}</h2>
-
-                                <button type="button" class="button-remove-item">Remove</button>
-                            </span>
-                        </section>
-                        `;
-                        document.querySelector(`.js-product-list`).innerHTML += sideCartItemHTML;
-                    });                        
-                };
-
-            } catch (error) {
-                console.error("Error fetching cart:", error);
-            };
-            document.querySelector(`.js-start-shopping`)
-                        .addEventListener(`click`, () => {
-                            window.location.href = "product_listing.html";
-            })
+            `;
+            document.querySelector(`.js-product-list`).innerHTML += sideCartItemHTML;
         });
-};
 
+        document.querySelectorAll(`.button-remove-item`).forEach(button => {
+            button.addEventListener('click', async () => {
+                await removeProductFromCart(button.dataset.id);
+                renderSideCart();
+            });
+        });
+
+    } catch (error) {
+        console.error("Error fetching cart:", error);
+    }
+}
+
+//Opens side cart when cart icon is clicked
+function openSideCart() {
+    document.querySelector(`.to-cart`)
+        .addEventListener(`click`, renderSideCart);
+}
+
+
+//romeves item from cart
+async function removeProductFromCart(productId) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("Please log in");
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://api.redseam.redberryinternship.ge/api/cart/products/${productId}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.ok) {
+            alert(`Item removed from cart!`)
+        } else {
+            alert(response.status)
+        }
+
+    } catch (error) {
+        alert(error);
+    }
+}
