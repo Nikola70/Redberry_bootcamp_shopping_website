@@ -351,6 +351,10 @@ footer {
     align-items: center;
     gap: 16px;
 }
+.pageNumbers span.active {
+  color: var(--SECONDARY-COLOR);
+  border: 1px solid var(--SECONDARY-COLOR);
+}
 
 footer img {
     cursor: pointer;

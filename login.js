@@ -65,8 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "product_listing.html";
 
     } catch (error) {
-      console.error("Error logging in:", error);
-      alert("An error occurred. Please try again later.");
+      alert("Incorrect Email or Password");
     }
   });
 });
