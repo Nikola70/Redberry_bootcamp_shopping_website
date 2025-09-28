@@ -2,6 +2,7 @@
 // Automatically fills out email field
 
 const userData = localStorage.getItem("user");
+const token = localStorage.getItem("token");
 
 let avatarSrc = "images/avatar_icon.png";
 
@@ -248,7 +249,7 @@ async function renderCheckoutCart() {
           <h2>$ ${totalPrice + 5}</h2>
         </span>
 
-        <button type="submit" class="pay-button">Pay</button>
+        <button type="submit" class="pay-button js-pay">Pay</button>
 
       </section>
         `;
@@ -297,6 +298,9 @@ async function renderCheckoutCart() {
             const productId = product.querySelector('.button-remove-item').dataset.id;
 
             let quantity = parseInt(quantitySpan.innerText);
+            //pay button
+            document.querySelector(`.js-pay`)
+                .addEventListener(`click`, processCheckout);
 
             // Update the UI and button states
             function updateSelector() {
@@ -347,7 +351,6 @@ async function renderCheckoutCart() {
                 }
             });
 
-
             updateSelector();
         });
 
@@ -363,5 +366,53 @@ async function renderCheckoutCart() {
     }
 }
 
+
+
 openSideCart();
 renderCheckoutCart();
+
+// checkout request
+async function processCheckout(event) {
+    event.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("Please log in to complete checkout.");
+        return;
+    }
+
+    const name = document.getElementById('name').value;
+    const surname = document.getElementById('surname').value;
+    const email = document.getElementById('email').value;
+    const address = document.getElementById('address').value;
+    const zipCode = document.getElementById('zip-code').value;
+
+    const requestBody = {
+        name: name,
+        surname: surname,
+        email: email,
+        address: address,
+        zip_code: zipCode
+    };
+
+    try {
+        const response = await fetch(`https://api.redseam.redberryinternship.ge/api/cart/checkout`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(requestBody)
+        });
+        if (response.ok) {
+            document.querySelector(`.checkout-modal`).style.display = "flex";
+        } else {
+            const errorData = await response.json();
+            alert(errorData.message);
+        }
+
+    } catch (error) {
+        alert("A network error occurred during checkout.");
+    }
+}
