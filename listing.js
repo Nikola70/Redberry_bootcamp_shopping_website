@@ -240,11 +240,11 @@ function openSideCart() {
                     const sideHTMLMain = `
                     <span class="side-cart-header">
                         <h1>Shopping cart (${data.length})</h1>
-                        <button class="side-cart-cross">
+                        <button class="side-cart-cross" onclick="document.querySelector('.side-cart').style.display = 'none';">
                             <img src="images/cross_icon.png">
                         </button>
                     </span>
-                    <section class="product-list">
+                    <section class="js-product-list">
                     </section>
                     <section class="price-calculation">
 
@@ -267,6 +267,11 @@ function openSideCart() {
 
                 </section>
                     `
+                    document.querySelector(`.side-cart`).style.display = `flex`;
+                    document.querySelector(`.side-cart`).innerHTML = sideHTMLMain;         
+                              
+                    let sideCartItemHTML = ``
+
                     data.forEach((item) => {
                         document.createElement(`section`);
                         sideCartItemHTML = `
@@ -302,10 +307,8 @@ function openSideCart() {
                             </span>
                         </section>
                         `;
-                        document.querySelector(`.side-cart`).style.display = `flex`;
-                        document.querySelector(`.side-cart`).innerHTML = sideHTMLMain;
-                        sideCart.querySelector(`.product-list`).innerHTML += sideCartItemHTML;
-                    });
+                        document.querySelector(`.js-product-list`).innerHTML += sideCartItemHTML;
+                    });                        
                 };
 
             } catch (error) {
@@ -317,4 +320,5 @@ function openSideCart() {
             })
         });
 };
+
 

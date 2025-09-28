@@ -699,12 +699,13 @@ hr {
   margin-right: 190px;
 }
 
-.product-list {
+.js-product-list {
   flex-grow: 1;                 
   display: flex;
   flex-direction: column; 
   gap: 20px;
   margin-top: 50px;
+  overflow: scroll;
 }
 
 .product-checkout-right-side {
@@ -712,6 +713,8 @@ hr {
   flex-direction: column;
   justify-content: space-between;
   margin: 12px 0;
+  width: 110px;
+  align-items: end;
 }
 
 .product-in-cart img{
@@ -853,6 +856,9 @@ hr {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+.item-subtotal{
+  margin-top: 20px;
 }
 
 /* Checkout Button */

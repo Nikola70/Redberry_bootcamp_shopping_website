@@ -16,7 +16,7 @@
 
 <header class="login-header">
 
-    <a href="index.html" class="brand-name">
+    <a href="product_listing.html" class="brand-name">
     <img src="images/logo.png">
     <h1 class="logo">RedSeam Clothing</h1>
     </a>
@@ -53,41 +53,14 @@
 <main class="product-listing-main">
 </main>
 
-<footer class="pages">
-    <img src="images/left_arrow_icon.png" id="prevPage">
-    <p id="pageNumbers"></p>
-    <img src="images/right_arrow_icon.png" id="nextPage">
-</footer>
-
-    <div class="price-modal">
-        <h2>Select price</h2>
-        <div class="input-group">
-            <div class="input-container">
-                <label for="from">From <span class="required">*</span></label>
-                <input type="text" id="from">
-            </div>
-            <div class="input-container">
-                <label for="to">To <span class="required">*</span></label>
-                <input type="text" id="to">
-            </div>
-        </div>
-        <button type="button" class="apply-filter-button">Apply</button>
-    </div>
-
-    <div class="sort-by-modal">
-      <h2>Sort by</h2>
-        <button type="button" class="sort-option js-newFirst">New products first</button>
-        <button type="button" class="sort-option js-lowToHigh">Price, low to high</button>
-        <button type="button" class="sort-option js-highToLow">Price, high to low</button>
-    </div>
-        <aside class="side-cart">
+<aside class="side-cart">
         <span class="side-cart-header">
             <h1>Shopping cart (2)</h1>
             <button class="side-cart-cross">
                 <img src="images/cross_icon.png">
             </button>
         </span>
-        <section class="product-list">
+        <section class="js-product-list">
             <section class="product-in-cart ">
 
                 <img src="images/clothing_824_1098.png">
@@ -161,6 +134,35 @@
             <button type="submit" class="pay-button start-shopping-button js-start-shopping">Start shopping</button>
         </section>
     </aside>
+
+<footer class="pages">
+    <img src="images/left_arrow_icon.png" id="prevPage">
+    <p id="pageNumbers"></p>
+    <img src="images/right_arrow_icon.png" id="nextPage">
+</footer>
+
+    <div class="price-modal">
+        <h2>Select price</h2>
+        <div class="input-group">
+            <div class="input-container">
+                <label for="from">From <span class="required">*</span></label>
+                <input type="text" id="from">
+            </div>
+            <div class="input-container">
+                <label for="to">To <span class="required">*</span></label>
+                <input type="text" id="to">
+            </div>
+        </div>
+        <button type="button" class="apply-filter-button">Apply</button>
+    </div>
+
+    <div class="sort-by-modal">
+      <h2>Sort by</h2>
+        <button type="button" class="sort-option js-newFirst">New products first</button>
+        <button type="button" class="sort-option js-lowToHigh">Price, low to high</button>
+        <button type="button" class="sort-option js-highToLow">Price, high to low</button>
+    </div>
+
 
 <script src="listing.js"></script>
 </body>
