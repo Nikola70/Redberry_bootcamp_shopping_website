@@ -690,6 +690,7 @@ hr {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 36px;
 }
 
 .checkout-cart {

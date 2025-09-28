@@ -1,4 +1,5 @@
 // Sets sets header picture to defualt avatar or users picture if it exsists
+// Automatically fills out email field
 
 const userData = localStorage.getItem("user");
 
@@ -7,6 +8,7 @@ let avatarSrc = "images/avatar_icon.png";
 if (userData) {
   const user = JSON.parse(userData); 
   avatarSrc = user.avatar || avatarSrc;
+  document.getElementById('email').value = user.email || null;
 }
 
 document.querySelector(`.right-side`).innerHTML = 
@@ -15,7 +17,7 @@ document.querySelector(`.right-side`).innerHTML =
   </button>
   <img src="${avatarSrc}" class="avatar">`;
 
-  // Renders side cart
+// Renders side cart
 
 async function renderSideCart() {
     const token = localStorage.getItem("token");
