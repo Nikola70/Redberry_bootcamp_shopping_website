@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: var(--FF);
 }
 
 /* Variables */
@@ -675,7 +676,7 @@ hr {
   right: 100px;
   top: 257px;
   width: 460px;
-  height: 635px;
+  height: 635px; 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -689,6 +690,10 @@ hr {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.checkout-cart {
+  overflow: scroll;
 }
 
 .product-checkout {

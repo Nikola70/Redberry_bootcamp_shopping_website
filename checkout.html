@@ -69,58 +69,6 @@
       </form>
 
       <div class="checkout-final">
-      <section class="product-in-cart">
-
-        <img src="images/clothing_824_1098.png">
-
-        <span class="product-checkout">            
-            <h2>Product Name</h2>
-            <p class="product-checkout-color">Color</p>
-            <p class="product-checkout-size">L</p>
-                <div class="quantity-selector">
-                  <button id="minus-button" aria-label="Decrease quantity">
-                    <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1 1H11" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </button>
-                  <span id="quantity">1</span>
-                  <button id="plus-button" aria-label="Increase quantity">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M6 1V11" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M1 6H11" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </button>
-                </div>
-        </span>
-        
-        <span class="product-checkout-right-side">
-
-            <h2>$ 25</h2>
-
-            <button type="button" class="button-remove-item">Remove</button>
-        </span>
-      </section>
-
-      <section class="price-calculation">
-
-        <span class="item-subtotal">
-            <h3>Item Subtotal</h3>
-            <h3>$ 50</h3>
-        </span>
-
-        <span class="delivery-fee">
-            <h3>Delivery</h3>
-            <h3>$5</h3>
-        </span>
-
-        <span class="total-price">
-          <h2>Total</h2>
-          <h2>$ 55</h2>
-        </span>
-
-        <button type="submit" class="pay-button">Pay</button>
-
-      </section>
       </div>
     </div>
 
@@ -137,37 +85,89 @@
     </div>
 
 </main>
-<script>
-        const minusButton = document.getElementById('minus-button');
-        const plusButton = document.getElementById('plus-button');
-        const quantitySpan = document.getElementById('quantity');
+<aside class="side-cart">
+        <span class="side-cart-header">
+            <h1>Shopping cart (2)</h1>
+            <button class="side-cart-cross">
+                <img src="images/cross_icon.png">
+            </button>
+        </span>
+        <section class="js-product-list">
+            <section class="product-in-cart">
 
-        let quantity = 1;
-        const minQuantity = 1; // You can set the minimum quantity here
+                <img src="images/clothing_824_1098.png">
 
-        // Function to update the number and button states
-        function updateSelector() {
-            quantitySpan.textContent = quantity;
-            // Disable the minus button if the quantity is at the minimum
-            minusButton.disabled = (quantity <= minQuantity);
-        }
+                <span class="product-checkout">            
+                    <h2>Product Name</h2>
+                    <p class="product-checkout-color">Color</p>
+                    <p class="product-checkout-size">L</p>
+                    <div class="quantity-selector">
+                        <button id="minus-button" aria-label="Decrease quantity">
+                            <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1H11" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <span id="quantity">1</span>
+                        <button id="plus-button" aria-label="Increase quantity">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 1V11" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1 6H11" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </span>
+                
+                <span class="product-checkout-right-side">
 
-        // Event listener for the plus button
-        plusButton.addEventListener('click', () => {
-            quantity++;
-            updateSelector();
-        });
+                    <h2>$ 25</h2>
 
-        // Event listener for the minus button
-        minusButton.addEventListener('click', () => {
-            if (quantity > minQuantity) {
-                quantity--;
-                updateSelector();
-            }
-        });
+                    <button type="button" class="button-remove-item">Remove</button>
+                </span>
+            </section>
+        </section>
+        <section class="price-calculation">
 
-        // Set the initial state when the page loads
-        updateSelector();
-    </script>
+        <span class="item-subtotal">
+            <h3>Item Subtotal</h3>
+            <h3>$ 50</h3>
+        </span>
+
+        <span class="delivery-fee">
+            <h3>Delivery</h3>
+            <h3>$5</h3>
+        </span>
+
+        <span class="total-price">
+          <h2>Total</h2>
+          <h2>$ 55</h2>
+        </span>
+
+        <button type="submit" class="pay-button">Go to checkout</button>
+
+      </section>
+    </aside>
+
+    <aside class="empty-side-cart">
+        <span class="side-cart-header">
+            <h1>Shopping cart (0)</h1>
+            <button type="button" class="side-cart-cross" onclick="document.querySelector(`.empty-side-cart`).style.display = `none`;">
+                <img src="images/cross_icon.png">
+            </button>
+        </span>
+        <section class="empty-side-cart-main">
+            <span class="cart-image" style="position: relative; display: inline-block;">
+                <img src="images/orange-cart-icon.png" style="display: block;">
+                <img src="images/orange_dots_icon.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            </span>
+            <h1>Ooops!</h1>
+
+            <p>You’ve got nothing in your cart just yet...</p>
+
+            <a href="product_listing.html">
+                <button type="submit" class="pay-button start-shopping-button js-start-shopping">Start shopping</button>
+            </a>
+        </section>
+    </aside>
+<script src="checkout.js"></script>
 </body> 
 </html>

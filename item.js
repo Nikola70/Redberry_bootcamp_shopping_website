@@ -291,7 +291,9 @@ async function renderSideCart() {
                     <h2>Total</h2>
                     <h2>$ ${totalPrice + 5}</h2>
                 </span>
-                <button type="submit" class="pay-button">Go to checkout</button>
+                <a href="checkout.html">
+                    <button type="submit" class="pay-button">Go to checkout</button>
+                </a>
             </section>
         `;
 
@@ -343,7 +345,7 @@ async function renderSideCart() {
                 }
 
                 try {
-                    const response = await fetch(
+                    await fetch(
                         `https://api.redseam.redberryinternship.ge/api/cart/products/${productId}`,
                         {
                             method: 'PATCH',
